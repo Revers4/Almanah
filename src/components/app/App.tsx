@@ -5,6 +5,7 @@ import { Footer } from "../Footer/Footer.tsx";
 
 
 const MainPage = lazy(() => import("../pages/MainPage"));
+const Knowledge = lazy(() => import("../pages/knowledge.tsx"));
 
 
 const App = () => {
@@ -16,6 +17,10 @@ const App = () => {
         <main className="flex-grow max-w-[1850px] w-full mx-auto">
           <Routes>
             <Route path="/" element={<MainPage />} />
+            <Route path="/knowledge" element={<Knowledge />}>
+              <Route path="introduction"/>
+              <Route path="preparation-guide"/>
+            </Route>
           </Routes>
         </main>
         <Footer />
