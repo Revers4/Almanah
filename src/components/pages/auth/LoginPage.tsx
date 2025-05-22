@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useLoginMutation } from "../../../API/authApi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { logIn } from '../../../store/UserSlice'
+import { logIn } from '../../../store/userSlice'
 
 export default function LoginPage() {
     const [login, setLogin] = useState('')
@@ -23,12 +23,6 @@ export default function LoginPage() {
             console.error("Login failed:", error);
         }
     };
-
-
-    // if(isSuccess){
-
-    // }
-
 
     return (
         <>
