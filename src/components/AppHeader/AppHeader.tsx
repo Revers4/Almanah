@@ -1,12 +1,19 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import telegramIcon from "../../icons/telegram.png";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { toggleTheme } from "../../store/themeSlice";
 
 export function AppHeader() {
     const location = useLocation();
     const isKnowlengeActive = location.pathname.startsWith("/knowledge")
 
+    const dispatch = useAppDispatch()
+    const theme = useAppSelector((state) => state.theme )
+
+    console.log(theme)
+
     return (
-        <header>
+        <header >
             <div className="bg-indigo-600">
                 <nav className="p-1">
                     <a href="/" className="flex text-white font-light items-center gap-2 mx-auto w-max hover:text-fuchsia-300 transition-colors duration-300 ease-in">
@@ -40,11 +47,11 @@ export function AppHeader() {
                     <button className=" hover:bg-white/10 border border-white/10 rounded-lg p-1 transition">
                         ➕
                     </button>
-                    <button className=" hover:bg-white/10 border border-white/10 rounded-lg p-1 transition">
-                        🌓
+                    <button onClick={()=>dispatch(toggleTheme())} className="hover:bg-white/10 border border-white/10 rounded-lg p-1 transition" >
+                        { theme === 'light' ? '🌞' : '🌙' }
                     </button>
 
-                    <button className="border border-white/10 rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-white/10 transition">
+                    <button className="border border-white/10 rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-white/10 transition dark:bg-white dark:text-black" >
                         Войти
                     </button>
                 </div>

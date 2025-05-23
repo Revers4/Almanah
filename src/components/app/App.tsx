@@ -1,14 +1,22 @@
-import { lazy } from "react";
+import { lazy, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { AppHeader } from "../AppHeader/AppHeader";
 import { Footer } from "../Footer/Footer.tsx";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks.ts";
+import { setTheme } from "../../store/themeSlice.ts";
 
 
 const MainPage = lazy(() => import("../pages/MainPage"));
-const Knowledge = lazy(() => import("../pages/knowledge.tsx"));
-
+const Knowledge = lazy(() => import("../pages/Knowledge.tsx"));
 
 const App = () => {
+  const theme = useAppSelector((state)=>state.theme)
+  const dispatch = useAppDispatch()
+
+  console.log('app theme', theme)
+  useEffect (()=> {
+    dispatch(setTheme(theme))
+  },[dispatch,theme])
 
   return (
     <Router>
