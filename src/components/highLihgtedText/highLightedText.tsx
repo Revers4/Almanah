@@ -1,15 +1,15 @@
 import type { JSX } from "react";
+import { Link } from "react-router-dom";
 
 interface HighlightedTextProps {
   text: string;
-  symbol?: string; // по умолчанию *
+  url?: string
 }
 
-const HighlightedText: React.FC<HighlightedTextProps> = ({ text, symbol = "*" }) => {
-  const regex = new RegExp(`\\${symbol}([^${symbol}]+)\\${symbol}`, "g");
+const HighlightedText: React.FC<HighlightedTextProps> = ({ text, url }) => {
+  const regex = /(\*([^*]+)\*)|(_([^_]+)_)/g;
 
   const parts: (string | JSX.Element)[] = [];
-
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
@@ -21,11 +21,27 @@ const HighlightedText: React.FC<HighlightedTextProps> = ({ text, symbol = "*" })
       parts.push(text.slice(lastIndex, start));
     }
 
-    parts.push(
-      <span key={start} style={{ fontWeight: "bold", color: "#d97706" }}>
-        {match[1]}
-      </span>
-    );
+    if (match[1]) {
+      parts.push(
+        <span key={start} className="font-bold">
+          {match[2]}
+        </span>
+      );
+    } else if (match[3]) {
+      if (url) {
+        parts.push(
+          <Link to={url} key={start} className="underline">
+            {match[4]}
+          </Link>
+        );
+      } else {
+        parts.push(
+          <span key={start} className="underline">
+            {match[4]}
+          </span>
+        );
+      }
+    }
 
     lastIndex = end;
   }
