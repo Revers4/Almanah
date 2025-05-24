@@ -3,11 +3,10 @@ import { Link } from "react-router-dom";
 
 interface HighlightedTextProps {
   text: string;
-  url?: string
 }
 
-const HighlightedText: React.FC<HighlightedTextProps> = ({ text, url }) => {
-  const regex = /(\*([^*]+)\*)|(_([^_]+)_)/g;
+const HighlightedText: React.FC<HighlightedTextProps> = ({ text }) => {
+  const regex = /(\*([^*]+)\*)|_([^_]+)_=>([^<]+)<=/g;
 
   const parts: (string | JSX.Element)[] = [];
   let lastIndex = 0;
@@ -21,26 +20,24 @@ const HighlightedText: React.FC<HighlightedTextProps> = ({ text, url }) => {
       parts.push(text.slice(lastIndex, start));
     }
 
+    // *жирный*
     if (match[1]) {
       parts.push(
         <span key={start} className="font-bold">
           {match[2]}
         </span>
       );
-    } else if (match[3]) {
-      if (url) {
-        parts.push(
-          <Link to={url} key={start} className="underline">
-            {match[4]}
-          </Link>
-        );
-      } else {
-        parts.push(
-          <span key={start} className="underline">
-            {match[4]}
-          </span>
-        );
-      }
+    }
+
+    // _текст_=>ссылка<=
+    if (match[3]) {
+      const underlineText = match[3];
+      const link = match[4];
+      parts.push(
+        <Link to={link} key={start} className="underline text-blue-600 hover:underline">
+          {underlineText}
+        </Link>
+      );
     }
 
     lastIndex = end;
