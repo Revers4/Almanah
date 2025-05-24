@@ -5,11 +5,11 @@ import { Footer } from "../Footer/Footer.tsx";
 import OtherLink from "../OtherLink/OtherLink.tsx";
 
 const MainPage = lazy(() => import("../pages/MainPage.tsx"));
-const Knowledge = lazy(() => import("../pages/Knowledge.tsx"));
+const Knowledge = lazy(() => import("../pages/knowledge/Knowledge.tsx"));
 const Auth = lazy(() => import("../pages/auth/Auth.tsx"));
 const LoginPage = lazy(() => import("../pages/auth/LoginPage.tsx"));
 const RegisterPage = lazy(() => import("../pages/auth/RegisterPage.tsx"));
-
+const Introduction = lazy (() => import("../pages/knowledge/Introduction.tsx"))
 
 
 const App = () => {
@@ -29,7 +29,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<MainPage />} />
               <Route path="/knowledge" element={<Knowledge />}>
-                <Route path="introduction" />
+                <Route path="introduction" element={<Introduction />}/>
                 <Route path="preparation-guide" />
               </Route>
               <Route path="/auth" element={<Auth />}>
