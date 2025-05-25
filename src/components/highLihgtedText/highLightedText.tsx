@@ -34,7 +34,7 @@ const HighlightedText: React.FC<HighlightedTextProps> = ({ text }) => {
       const underlineText = match[3];
       const link = match[4];
       parts.push(
-        <Link to={link} key={start} className="underline text-blue-600 hover:underline">
+        <Link to={link} key={start} className="underline hover:underline">
           {underlineText}
         </Link>
       );
@@ -47,7 +47,7 @@ const HighlightedText: React.FC<HighlightedTextProps> = ({ text }) => {
     parts.push(text.slice(lastIndex));
   }
 
-  return <>{parts}</>;
+  return <p>{parts}</p>;
 };
 
 export default HighlightedText;
