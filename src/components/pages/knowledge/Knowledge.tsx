@@ -2,8 +2,8 @@ import { NavLink, Outlet } from "react-router-dom";
 
 export default function Knowledge() {
     return (
-        <section className="flex gap-8 min-h-[200vh] p-8 text-white ">
-            <aside className="sticky font-normal w-64 top-8h-max p-4 rounded space-y-4">
+        <section className="flex gap-8 min-h-[80vh] p-8 text-white ">
+            <aside className="min-w-[230px] sticky top-16 h-fit overflow-y-auto space-y-4">
                 <NavLink
                     className={({ isActive }) =>
                         ` block transition ${isActive ? 'font-bold' : ''}`} to={"/knowledge/introduction"}>Hack Frontend</NavLink>
