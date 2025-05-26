@@ -10,7 +10,8 @@ const MainPage = lazy(() => import("../pages/MainPage"));
 const Knowledge = lazy(() => import("../pages/Knowledge.tsx"));
 
 const App = () => {
-  const theme = useAppSelector((state)=>state.theme)
+  // const theme = useAppSelector((state)=>state.theme)
+  const theme = useAppSelector((state) => state.theme.mode);
   const dispatch = useAppDispatch()
 
   console.log('app theme', theme)
@@ -22,7 +23,7 @@ const App = () => {
     <Router>
       <div className="app min-h-screen flex flex-col  bg-black">
         <AppHeader />
-        <main className="flex-grow max-w-[1850px] w-full mx-auto">
+        <main className={`flex-grow max-w-[1850px] w-full mx-auto transition-colors duration-200 ${theme==='dark' ? 'bg-black' : 'bg-white '}`}>
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/knowledge" element={<Knowledge />}>
