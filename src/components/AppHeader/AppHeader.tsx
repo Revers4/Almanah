@@ -14,10 +14,20 @@ export function AppHeader() {
     useEffect(() => {
         document.documentElement.classList.toggle("dark", theme === "dark");
         }, [theme]);
-    console.log(theme)
+            
+    const getLinkClass = (isActive: boolean) => {
+        if (isActive) {
+            return theme === 'dark'
+            ? 'text-white font-bold'
+            : 'text-black font-bold';
+        }
+        return theme === 'dark'
+            ? 'text-gray-400 hover:text-white hover:bg-white/10'
+            : 'text-gray-600 hover:text-black hover:bg-black/10';
+        };
 
-    return (
-        <header className={`${theme==='dark' ? 'bg-black' : 'bg-white '} transition-colors duration-200`}>
+    return ( 
+        <header className={`${theme==='dark' ? 'bg-black border-b border-white/10' : 'bg-white border-b border-gray-200'}  transition-colors duration-300`}>
             <div className="bg-indigo-600">
                 <nav className="p-1">
                     <a href="/" className="flex text-white font-light items-center gap-2 mx-auto w-max hover:text-fuchsia-300 transition-colors duration-300 ease-in">
@@ -32,13 +42,16 @@ export function AppHeader() {
                         <span>🧑‍💻</span>
                         <span className={`${theme === 'dark' ? 'text-white':'text-black'}`}>Hack Frontend</span>
                     </Link>
-                    <nav className="flex gap-4 text-sm text-zinc-300">
+                    <nav className={`flex gap-4 text-sm text-zinc-300`}>
                         <NavLink to={"/knowledge/introduction"} end
-                            className={() =>
-                                `text-gray-400 hover:text-gray-200 hover:bg-white/10 px-2 py-1 rounded-lg transition ${isKnowlengeActive ? 'font-bold text-white' : ''}`}
+                        className={({ isActive }) =>`px-2 py-1 rounded-lg transition ${getLinkClass(isActive)}`}
                         >База знаний</NavLink>
-                        <NavLink to={"/"} end className=" text-gray-400 hover:text-gray-200 hover:bg-white/10 px-2 py-1 rounded-lg transition">База задач</NavLink>
-                        <NavLink to={"/"} end className=" text-gray-400 hover:text-gray-200 hover:bg-white/10 px-2 py-1 rounded-lg transition">Услуги</NavLink>
+                        <NavLink to={"/"} end 
+                        className={({ isActive }) =>`px-2 py-1 rounded-lg transition ${getLinkClass(isActive)}`}
+                        >База задач</NavLink>
+                        <NavLink to={"/"} end 
+                        className={({ isActive }) =>`px-2 py-1 rounded-lg transition ${getLinkClass(isActive)}`}
+                        >Услуги</NavLink>
                     </nav>
                 </div>
 
