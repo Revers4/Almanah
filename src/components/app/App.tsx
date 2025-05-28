@@ -19,9 +19,9 @@ const App = () => {
 
   return (
     <Router>
-      <div className={`app min-h-screen flex flex-col  bg-black ${theme==='dark' ? 'bg-black' : 'bg-white '}`}>
+      <div className={`app min-h-screen flex flex-col transition-colors duration-300 ${theme==="dark" ? "bg-black"  : "bg-white "}`}>
         <AppHeader />
-        <main className={`flex-grow max-w-[1850px] w-full mx-auto transition-colors duration-200 `}>
+        <main className={"flex-grow max-w-[1850px] w-full mx-auto transition-colors duration-300 "}>
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/knowledge" element={<Knowledge />}>
