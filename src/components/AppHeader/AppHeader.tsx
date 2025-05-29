@@ -1,33 +1,48 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import burgerIcon from "../../icons/burger.png";
-import closeIcon from "../../icons/close.png"
+import closeIcon from "../../icons/close.png";
+import telegramIcon from "../../icons/telegram.png";
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
+import { toggleTheme } from "../../store/themeSlice";
 
 const NavBar: React.FC<{ isKnowlengeActive: boolean, tailWind: string }> = ({ isKnowlengeActive, tailWind }) => {
+    const theme = useAppSelector((state) => state.theme.mode )
+
+    const getLinkClass = (isActive: boolean) => {
+        if (isActive) {
+            return theme === "dark"
+            ? "text-white font-bold"
+            : "text-black font-bold";
+        }
+        return theme === "dark"
+            ? "text-gray-400 hover:text-white hover:bg-white/10"
+            : "text-gray-600 hover:text-black hover:bg-black/10";
+        };
+
     return (
-        <nav className={`md:flex items-center md:gap-2 lg:gap-4 space-y-2 md:space-y-0
-                       transition-all ease-in duration-500 ${tailWind}`}>
+        <nav className={`md:flex items-center md:gap-2 lg:gap-4 space-y-2 md:space-y-0 transition-all ease-in duration-500 text-zinc-300 ${tailWind}`}>
                     <Link to={"/"} className="flex items-center ml-1 gap-2 font-bold text-lg">
                         <span>🧑‍💻</span>
-                        <span>Hack Frontend</span>
+                        <span className={`${theme === 'dark' ? 'text-white':'text-black'}`}>Hack Frontend</span>
                     </Link>
                     <ul className="md:flex md:gap-2 lg:gap-4 space-y-3 md:space-y-0 text-sm text-zinc-300">
                         <li>
                             <NavLink to={"/knowledge/introduction"} end
-                                className={() =>
-                                    `hover:text-white hover:bg-white/10 px-2 py-1 rounded-lg transition ${isKnowlengeActive ? 'font-bold text-white' : ''}`}
+                                className={({ isActive }) =>`px-2 py-1 rounded-lg transition ${getLinkClass(isActive)}`}
                             >База знаний</NavLink>
                         </li>
                         <li>
-                            <NavLink to={"/"} end className="hover:text-white hover:bg-white/10 px-2 py-1 rounded-lg transition">База задач</NavLink>
+                            <NavLink to={"/tasks"} end className={({ isActive }) =>`px-2 py-1 rounded-lg transition ${getLinkClass(isActive)}`}>База задач</NavLink>
                         </li>
                         <li>
-                            <NavLink to={"/"} end className="hover:text-white hover:bg-white/10 px-2 py-1 rounded-lg transition">Услуги</NavLink>
+                            <NavLink to={"/service"} end className={({ isActive }) =>`px-2 py-1 rounded-lg transition ${getLinkClass(isActive)}`}>Услуги</NavLink>
                         </li>
                     </ul>
                 </nav>
     )
-}
+};
+
 
 export function AppHeader() {
     const location = useLocation();
@@ -37,6 +52,9 @@ export function AppHeader() {
     const [isOpen, setIsOpen] = useState(false)
     const toggleMenu = () => setIsOpen(prev => !prev)
 
+    const dispatch = useAppDispatch()
+    const theme = useAppSelector((state) => state.theme.mode )
+
     useEffect(() => {
         if(isOpen) {
             document.body.classList.add("overflow-hidden")
@@ -45,14 +63,26 @@ export function AppHeader() {
         }
     })
 
+    useEffect(() => {
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        }, [theme]);
+
     if (isAuthPage) return null
 
-    return (
-        <header>
+
+    return ( 
+        <header className={`${theme==="dark" ? "border-white/10" : " border-gray-200"} border-b transition-colors duration-300`}>
+            {/* <div className="bg-indigo-600">
+                <nav className="p-1">
+                    <a href="/" className="flex text-white font-light items-center gap-2 mx-auto w-max hover:text-fuchsia-300 transition-colors duration-300 ease-in">
+                        <img src={telegramIcon} alt="Telegram logo" className="w-4" />
+                        <span className="font-bold">Hack Frontend Community</span>
+                    </a>
+                </nav>
+            </div> */}
             <div className="max-w-[1850px] mx-auto border-b border-white/10 text-white px-4 py-2 flex items-center justify-between">
                 {/* Левая часть навигации (md+) */}
                 <NavBar isKnowlengeActive={isKnowlengeActive} tailWind="md:visible hidden"/>
-
                 {/* Бургер-кнопка для мобилки */}
                 <button
                     onClick={toggleMenu}
@@ -64,37 +94,38 @@ export function AppHeader() {
                 {/* Правая часть (поиск, кнопки) */}
                 <div className="flex items-center gap-3">
                     <div className="relative md:block hidden">
-                        <input type="text" placeholder="Поиск..." className="bg-white/10 text-sm text-white rounded-lg pl-9 pr-4 py-2 focus:outline-none focus:ring-2 focus:ring-zinc-700" />
+                        <input type="text" placeholder="Поиск..." className={`text-sm rounded-lg pl-9 pr-4 py-2 focus:outline-none focus:ring-2 transition-colors duration-300 border 
+                            ${theme === "dark" ? "bg-white/10 text-white border-white/10 placeholder-white/60" : "bg-gray-100 text-black border-gray-100 placeholder-gray-400"}`} />
                         <span className="absolute left-2 top-1.5 text-zinc-400">🔍</span>
                     </div>
 
-                    <button className="md:hidden hover:bg-white/10 border border-white/10 rounded-lg p-1 transition">
-                        <span className="">🔍</span>
+                    <button className={`md:hidden rounded-lg p-2 transition-colors duration-300 border ${theme === "dark" ? "border-white/10 hover:bg-white/10 text-white" : "border-gray-200 hover:bg-black/10 text-black"}`}>
+                        🔍
                     </button>
 
-                    <button className=" hover:bg-white/10 border border-white/10 rounded-lg p-1 transition">
+                    <button className={`rounded-lg p-2 text-sm transition-colors duration-300 border ${theme === "dark" ? "border-white/10 hover:bg-white/10 text-white":"border-gray-200 hover:bg-black/10 text-black"}`}>
                         ➕
-                    </button>
-                    <button className=" hover:bg-white/10 border border-white/10 rounded-lg p-1 transition">
-                        🌓
-                    </button>
+                    </button>    
 
+                    <button onClick={()=>dispatch(toggleTheme())} className={`rounded-lg p-2 text-sm transition-colors duration-300 border ${theme === "dark"? "border-white/10 hover:bg-white/10 text-white": "border-gray-200 hover:bg-black/10 text-black"}`}>
+                        { theme === "dark" ? "🌙" : "🌞"}
+                    </button>
                     <Link to={"/auth/login"} className="border border-white/10 rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-white/10 transition">
                         Войти
                     </Link>
-                </div>
+                </div>  
 
                 {/* Мобильное бургер меню */}
                 <div
                     className={`
-                 fixed top-0
-                 overflow-y-auto
-                 ${isOpen ? 'left-0' : '-left-full'}
-                 w-3/4 h-full p-3
-                 bg-black
-                 transition-all duration-700 ease-in
-                 z-50
-                 flex flex-col`}>
+                fixed top-0
+                overflow-y-auto
+                ${isOpen ? 'left-0' : '-left-full'}
+                w-3/4 h-full p-3
+                bg-black
+                transition-all duration-700 ease-in
+                z-50
+                flex flex-col`}>
 
                     <button
                         onClick={toggleMenu}
