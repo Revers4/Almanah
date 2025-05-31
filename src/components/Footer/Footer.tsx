@@ -6,7 +6,7 @@ export function Footer() {
     const theme = useAppSelector((state) => state.theme.mode);
     
     return (
-        <footer className={`text-white max-w-[1850px] w-full mx-auto px-8 py-4 border-t transition-colors duration-300 ${theme==="dark" ? "border-white/10" : "border-gray-200"}`}>
+        <footer className={`text-white max-w-[1850px] w-full mx-auto px-8 py-4 border-t border-gray-200  ${theme==="dark" && "border-white/10"}`}>
                 <div className={`flex flex-col items-center gap-1 md:gap-4 md:flex-row md:justify-between ${theme === "dark" ? "text-white":"text-black"}`}>
                     <div className="text-zinc-400">
                         © 2025 <Link to={"/"} className="font-semibold opacity-75 hover:opacity-100 transition">Hack Frontend</Link>

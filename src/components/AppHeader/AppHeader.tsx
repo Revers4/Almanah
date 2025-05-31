@@ -2,11 +2,10 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import burgerIcon from "../../icons/burger.png";
 import closeIcon from "../../icons/close.png";
-import telegramIcon from "../../icons/telegram.png";
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks";
 import { toggleTheme } from "../../store/themeSlice";
 
-const NavBar: React.FC<{ isKnowlengeActive: boolean, tailWind: string }> = ({ isKnowlengeActive, tailWind }) => {
+const NavBar: React.FC<{tailWind: string }> = ({ tailWind }) => {
     const theme = useAppSelector((state) => state.theme.mode )
 
     const getLinkClass = (isActive: boolean) => {
@@ -46,7 +45,6 @@ const NavBar: React.FC<{ isKnowlengeActive: boolean, tailWind: string }> = ({ is
 
 export function AppHeader() {
     const location = useLocation();
-    const isKnowlengeActive = location.pathname.startsWith("/knowledge")
     const isAuthPage = location.pathname.startsWith("/auth")
 
     const [isOpen, setIsOpen] = useState(false)
@@ -71,18 +69,10 @@ export function AppHeader() {
 
 
     return ( 
-        <header className={`${theme==="dark" ? "border-white/10" : " border-gray-200"} border-b transition-colors duration-300`}>
-            {/* <div className="bg-indigo-600">
-                <nav className="p-1">
-                    <a href="/" className="flex text-white font-light items-center gap-2 mx-auto w-max hover:text-fuchsia-300 transition-colors duration-300 ease-in">
-                        <img src={telegramIcon} alt="Telegram logo" className="w-4" />
-                        <span className="font-bold">Hack Frontend Community</span>
-                    </a>
-                </nav>
-            </div> */}
+        <header className={`${theme==="dark" ? "border-white/10" : " border-gray-200"} border-b`}>
             <div className="max-w-[1850px] mx-auto border-b border-white/10 text-white px-4 py-2 flex items-center justify-between">
                 {/* Левая часть навигации (md+) */}
-                <NavBar isKnowlengeActive={isKnowlengeActive} tailWind="md:visible hidden"/>
+                <NavBar tailWind="md:visible hidden"/>
                 {/* Бургер-кнопка для мобилки */}
                 <button
                     onClick={toggleMenu}
@@ -110,7 +100,7 @@ export function AppHeader() {
                     <button onClick={()=>dispatch(toggleTheme())} className={`rounded-lg p-2 text-sm transition-colors duration-300 border ${theme === "dark"? "border-white/10 hover:bg-white/10 text-white": "border-gray-200 hover:bg-black/10 text-black"}`}>
                         { theme === "dark" ? "🌙" : "🌞"}
                     </button>
-                    <Link to={"/auth/login"} className="border border-white/10 rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-white/10 transition">
+                    <Link to={"/auth/login"} className={`rounded-lg px-3 py-1.5 text-sm font-medium hover:bg-white/10 transition dark:bg-white dark:text-black ${theme === 'dark' ? 'border-2 border-white/10':'border border-gray-200 text-black'} `} >
                         Войти
                     </Link>
                 </div>  
@@ -133,7 +123,7 @@ export function AppHeader() {
                         aria-label="Закрыть меню">
                         <img src={closeIcon} alt="Close" className="w-4 h-4" />
                     </button>
-                    <NavBar isKnowlengeActive={isKnowlengeActive} tailWind=""/>
+                    <NavBar tailWind=""/>
 
                 </div>
             </div>

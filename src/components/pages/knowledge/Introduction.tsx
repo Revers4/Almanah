@@ -1,4 +1,4 @@
-import HighlightedText from "../../highLihgtedText/HighLightedText";
+import HighlightedText from "../../highLihgtedText/highLightedText";
 
 export default function Introduction() {
     return (

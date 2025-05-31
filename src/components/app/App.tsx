@@ -7,7 +7,7 @@ import { setTheme } from "../../store/themeSlice.ts";
 import OtherLink from "../OtherLink/OtherLink.tsx";
 
 const MainPage = lazy(() => import("../pages/MainPage.tsx"));
-const Knowledge = lazy(() => import("../pages/Knowledge/Knowledge.tsx"));
+const Knowledge = lazy(() => import("../pages/knowledge/Knowledge.tsx"));
 const Auth = lazy(() => import("../pages/auth/Auth.tsx"));
 const LoginPage = lazy(() => import("../pages/auth/LoginPage.tsx"));
 const RegisterPage = lazy(() => import("../pages/auth/RegisterPage.tsx"));
@@ -23,7 +23,7 @@ const App = () => {
 
   return (
     <Router>
-      <div className={`app min-h-screen flex flex-col transition-colors duration-300 ${theme==="dark" ? "bg-black/95"  : "bg-white "}`}>
+      <div className={`app min-h-screen flex flex-col  bg-black ${theme==='dark' ? 'bg-black' : 'bg-white '}`}>
         <OtherLink />
         <AppHeader />
         <main className="flex-grow max-w-[1850px] w-full mx-auto px-5">

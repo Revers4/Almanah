@@ -3,7 +3,7 @@ import { useAppSelector } from "../../../hooks/hooks";
 
 
 export default function Knowledge() {
-    const theme = useAppSelector((state: { theme: { mode: any; }; }) => state.theme.mode);
+    const theme = useAppSelector((state: { theme: { mode: any; }; }) => state.theme.mode)
     
     return (
         <section className="flex gap-8 min-h-[200vh] p-8">

@@ -6,7 +6,7 @@ export default function MainPage() {
     const theme = useAppSelector((state) => state.theme.mode);
 
     return (
-        <section className={`flex items-center justify-center flex-col min-h-[80vh] text-white transition-colors duration-300 ${theme==="dark" ? "bg-black" : "bg-white "}`}>
+        <section className={"flex items-center justify-center flex-col min-h-[80vh] text-white transition-colors duration-300"}>
             <h1 className={`text-4xl font-bold mb-5 sm:text-7xl ${theme==="dark" ? "text-white" : "text-black"}`}>Hack Frontend</h1>
             <p className={`max-w-[600px] mb-8 text-center sm:text-base ${theme==="dark" ? "text-white" : "text-black"}`}>
                 <span className="font-bold" >Hack Frontend</span> — это платформа, где вы сможете отточить навыки фронтенд-разработки и подготовиться к успешному собеседованию на должность фронтенд-разработчика.
