@@ -16,13 +16,13 @@ const App = () => {
 
   return (
     <Router>
-      <div className="app min-h-screen flex flex-col  bg-black/95">
+      <div className="app min-h-screen flex flex-col text-neutral-900 dark:text-white bg-white dark:bg-black/95">
         <OtherLink />
         <AppHeader />
         <main className="flex-grow max-w-[1850px] w-full mx-auto px-5">
           <Suspense
             fallback={
-              <div className="flex justify-center items-center h-[300px] w-full text-white">
+              <div className="flex justify-center items-center h-[300px] w-full">
                 <div className="animate-spin rounded-full h-8 w-8 border-4 border-white border-t-transparent" />
               </div>
             }>

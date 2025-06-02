@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useLoginMutation } from "../../../API/authApi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { logIn } from '../../../store/userSlice'
+import { logIn } from '../../../store/UserSlice'
 
 export default function LoginPage() {
     const [login, setLogin] = useState('')
@@ -45,7 +45,7 @@ export default function LoginPage() {
                         id="login"
                         type="text"
                         placeholder="Ваш логин"
-                        className={`border ${isError ? 'border-red-400' : 'border-white/20'} rounded-lg px-4 py-2`}
+                        className={`border ${isError ? 'border-red-400' : 'border-black/30 dark:border-white/20'} rounded-lg px-4 py-2`}
                         value={login}
                         onChange={(e) => setLogin(e.target.value)}
                         required
@@ -57,7 +57,7 @@ export default function LoginPage() {
                         id="password"
                         type="password"
                         placeholder="Пароль"
-                        className={`border ${isError ? 'border-red-400' : 'border-white/20'} rounded-lg px-4 py-2`}
+                        className={`border ${isError ? 'border-red-400' : 'border-black/30 dark:border-white/20'} rounded-lg px-4 py-2`}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
@@ -65,7 +65,7 @@ export default function LoginPage() {
                 </div>
                 {isError && <div className="text-red-400 text-center">Неверный логин или пароль!</div>}
                 <button
-                    className={`w-full px-4 py-2 bg-white rounded-xl text-black ${isLoading && 'bg-white/80'}`}
+                    className="w-full px-4 py-2 bg-black/95 dark:bg-white text-white dark:text-black rounded-xl"
                     disabled={isLoading}
                     type="submit"
                 >Войти</button>
