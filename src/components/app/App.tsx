@@ -23,7 +23,7 @@ const App = () => {
           <Suspense
             fallback={
               <div className="flex justify-center items-center h-[300px] w-full">
-                <div className="animate-spin rounded-full h-8 w-8 border-4 border-white border-t-transparent" />
+                <div className="animate-spin rounded-full h-8 w-8 border-4 border-black border-t-transparent dark:border-white dark:border-t-transparent" />
               </div>
             }>
             <Routes>
