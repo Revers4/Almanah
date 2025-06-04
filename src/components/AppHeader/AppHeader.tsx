@@ -4,8 +4,7 @@ import burgerWhite from "../../icons/burger-white.png";
 import burgerDark from "../../icons/burger-dark.png";
 import closeDark from "../../icons/close-dark.png"
 import closeWhite from "../../icons/close-white.png"
-
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import type { RootState } from "../../store";
 import { toggleTheme } from "../../store/ThemSlice";
 
@@ -45,8 +44,8 @@ export function AppHeader() {
     const [isOpen, setIsOpen] = useState(false)
     const toggleMenu = () => setIsOpen(prev => !prev)
     
-    const theme = useSelector((state: RootState) => state.theme.mode);
-    const dispatch = useDispatch()
+    const theme = useAppSelector((state: RootState) => state.theme.mode)
+    const dispatch = useAppDispatch()
     
     const icon = theme === "dark" ? "🌙" : "🌞";
     const burgerIcon = theme === "dark" ? burgerWhite : burgerDark
