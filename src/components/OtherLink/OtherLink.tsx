@@ -1,4 +1,4 @@
-import telegramIcon from "../../icons/telegram.png";
+import telegramIcon from "../../icons/telegram-light.png";
 
 
 export default function OtherLink() {

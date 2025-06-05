@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 import { useLoginMutation } from "../../../API/authApi";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { logIn } from '../../../store/UserSlice';
-import { useAppSelector } from "../../../hooks/hooks";
-
+import { logIn } from '../../../store/UserSlice'
 
 export default function LoginPage() {
     const [login, setLogin] = useState('')
@@ -26,10 +24,8 @@ export default function LoginPage() {
         }
     };
 
-    const theme = useAppSelector((state) => state.theme.mode )
-
     return (
-        <div className={`${theme==='dark' ? 'text-white' : 'text-black'}`}>
+        <>
             {isLoading &&
                 <div className="bg-black/15 w-full h-full absolute top-0 bottom-0 left-0 right-0 text-white flex items-center justify-center">
                     <div className="animate-spin rounded-full h-8 w-8 border-4 border-white border-t-transparent" />
@@ -49,7 +45,7 @@ export default function LoginPage() {
                         id="login"
                         type="text"
                         placeholder="Ваш логин"
-                        className={`border border-gray-200 ${isError ? 'border-red-400' : ''} rounded-lg px-4 py-2`}
+                        className={`border ${isError ? 'border-red-400' : 'border-black/30 dark:border-white/20'} rounded-lg px-4 py-2`}
                         value={login}
                         onChange={(e) => setLogin(e.target.value)}
                         required
@@ -61,7 +57,7 @@ export default function LoginPage() {
                         id="password"
                         type="password"
                         placeholder="Пароль"
-                        className={`border border-gray-200 ${isError ? 'border-red-400' : ''} rounded-lg px-4 py-2`}
+                        className={`border ${isError ? 'border-red-400' : 'border-black/30 dark:border-white/20'} rounded-lg px-4 py-2`}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
@@ -69,12 +65,12 @@ export default function LoginPage() {
                 </div>
                 {isError && <div className="text-red-400 text-center">Неверный логин или пароль!</div>}
                 <button
-                    className={`w-full px-4 py-2 rounded-xl ${theme === 'dark' ? "bg-white text-black" : "bg-black text-white"} ${isLoading && 'bg-white/80'}`}
+                    className="w-full px-4 py-2 bg-black/95 dark:bg-white text-white dark:text-black rounded-xl"
                     disabled={isLoading}
                     type="submit"
                 >Войти</button>
                 <Link className="block text-center" to={"../register"}>Нет аккаунта?</Link>
             </form>
-        </div>
+        </>
     );
 }

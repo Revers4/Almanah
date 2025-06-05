@@ -1,9 +1,7 @@
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { AppHeader } from "../AppHeader/AppHeader";
 import { Footer } from "../Footer/Footer.tsx";
-import { useAppDispatch, useAppSelector } from "../../hooks/hooks.ts";
-import { setTheme } from "../../store/themeSlice.ts";
 import OtherLink from "../OtherLink/OtherLink.tsx";
 
 const MainPage = lazy(() => import("../pages/MainPage.tsx"));
@@ -14,24 +12,19 @@ const RegisterPage = lazy(() => import("../pages/auth/RegisterPage.tsx"));
 const Introduction = lazy (() => import("../pages/knowledge/Introduction.tsx"))
 const Service = lazy(()=> import('../pages/service/Service.tsx'))
 
-const App = () => {
-  const theme = useAppSelector((state) => state.theme.mode);
-  const dispatch = useAppDispatch()
 
-  useEffect (()=> {
-    dispatch(setTheme(theme))
-  },[dispatch,theme])
+const App = () => {
 
   return (
     <Router>
-      <div className={`app min-h-screen flex flex-col  bg-black ${theme==='dark' ? 'bg-black' : 'bg-white '}`}>
+      <div className="app min-h-screen flex flex-col text-neutral-900 dark:text-white bg-white dark:bg-black/95">
         <OtherLink />
         <AppHeader />
         <main className="flex-grow max-w-[1850px] w-full mx-auto px-5">
           <Suspense
             fallback={
-              <div className="flex justify-center items-center h-[300px] w-full text-white">
-                <div className="animate-spin rounded-full h-8 w-8 border-4 border-white border-t-transparent" />
+              <div className="flex justify-center items-center h-[300px] w-full">
+                <div className="animate-spin rounded-full h-8 w-8 border-4 border-black border-t-transparent dark:border-white dark:border-t-transparent" />
               </div>
             }>
             <Routes>
@@ -55,4 +48,3 @@ const App = () => {
 };
 
 export default App;
-
