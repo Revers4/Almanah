@@ -12,6 +12,7 @@ const Auth = lazy(() => import("../pages/auth/Auth.tsx"));
 const LoginPage = lazy(() => import("../pages/auth/LoginPage.tsx"));
 const RegisterPage = lazy(() => import("../pages/auth/RegisterPage.tsx"));
 const Introduction = lazy (() => import("../pages/knowledge/Introduction.tsx"))
+const Service = lazy(()=> import('../pages/service/Service.tsx'))
 
 const App = () => {
   const theme = useAppSelector((state) => state.theme.mode);
@@ -39,6 +40,7 @@ const App = () => {
                 <Route path="introduction" element={<Introduction />}/>
                 <Route path="preparation-guide" />
               </Route>
+              <Route path="/service" element={<Service/>}/>
               <Route path="/auth" element={<Auth />}>
                 <Route path="login" element={<LoginPage />} />
                 <Route path="register" element={<RegisterPage />} />
