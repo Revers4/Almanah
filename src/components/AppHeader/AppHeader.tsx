@@ -30,7 +30,7 @@ const NavBar: React.FC<{ tailWind: string }> = ({ tailWind }) => {
                             <NavLink to={"/"} end className={`${navLinkClasses}`}>База задач</NavLink>
                         </li>
                         <li>
-                            <NavLink to={"/"} end className={`${navLinkClasses}`}>Услуги</NavLink>
+                            <NavLink to={"/service"} end className={`${navLinkClasses}`}>Услуги</NavLink>
                         </li>
                     </ul>
                 </nav>
