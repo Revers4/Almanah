@@ -1,11 +1,11 @@
-FROM node:18-slim
-# Используем slim вместо alpine — он совместим с бинарником esbuild без пересборки
+# Этап разработки
+FROM node:18-slim AS development
 
 WORKDIR /app
 # Указывает рабочую директорию внутри контейнера
 
-COPY package.json package-lock.json* ./
-# Копируем package.json и, если есть, package-lock.json
+# Копируем только файлы, необходимые для установки зависимостей
+COPY package*.json ./
 
 RUN npm install
 # Устанавливаем зависимости
@@ -13,14 +13,8 @@ RUN npm install
 COPY . .
 # Копируем все файлы проекта
 
-ENV PORT=3000
-# Задаём переменную окружения
+# Открываем порт для разработки
+EXPOSE 5173
 
-EXPOSE $PORT
-# Открываем порт
-
-VOLUME ["/app/data"]
-# Указываем точку монтирования тома
-
+# Запускаем приложение в режиме разработки с поддержкой hot-reload
 CMD ["npm", "run", "dev"]
-# Указываем команду запуска
