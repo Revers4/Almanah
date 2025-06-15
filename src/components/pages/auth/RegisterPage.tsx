@@ -2,10 +2,8 @@ import { Link } from "react-router-dom";
 import { useRegisterMutation } from "../../../API/authApi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch} from "react-redux";
 import { logIn } from "../../../store/UserSlice";
-
-
+import { useAppDispatch } from "../../../hooks/hooks";
 
 export default function LoginPage() {
     const [login, setLogin] = useState('')
@@ -13,7 +11,7 @@ export default function LoginPage() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [registerMutation, {isError, isLoading}] = useRegisterMutation()
     const navigate = useNavigate();
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const registerFunc = async () => {
         if(password === confirmPassword){
