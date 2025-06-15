@@ -1,5 +1,5 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, type FC } from "react";
 import burgerWhite from "../../icons/burger-white.png";
 import burgerDark from "../../icons/burger-dark.png";
 import closeDark from "../../icons/close-dark.png"
@@ -7,8 +7,9 @@ import closeWhite from "../../icons/close-white.png"
 import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import type { RootState } from "../../store";
 import { toggleTheme } from "../../store/ThemSlice";
+import DefaultIcon from "../defaultIcon/DefaultIcon";
 
-const NavBar: React.FC<{ tailWind: string }> = ({ tailWind }) => {
+const NavBar: FC<{ tailWind: string }> = ({ tailWind }) => {
     const isKnowlengeActive = location.pathname.startsWith("/knowledge")
     const isServiceActive = location.pathname.startsWith("/service")
     const navLinkClasses = "hover:text-black hover:bg-black/10 dark:hover:text-white dark:hover:bg-white/10 px-2 py-1 rounded-lg transition opacity-85"
@@ -52,6 +53,8 @@ export function AppHeader() {
     const icon = theme === "dark" ? "🌙" : "🌞";
     const burgerIcon = theme === "dark" ? burgerWhite : burgerDark
     const closeIcon = theme === "dark" ? closeWhite : closeDark
+
+    const userName = useAppSelector(state => state.user.name)
 
     useEffect(() => {
         if(isOpen) {
@@ -99,9 +102,12 @@ export function AppHeader() {
                         {icon}
                     </button>
 
-                    <Link to={"/auth/login"} className="hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 rounded-lg px-3 py-2 text-sm font-medium transition">
-                        Войти
-                    </Link>
+                    {userName 
+                        ? (<DefaultIcon/>)
+                        : (<Link to={"/auth/login"} 
+                                className="hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 rounded-lg px-3 py-2 text-sm font-medium transition">
+                                    Войти
+                            </Link>)}
                 </div>
 
                 {/* Мобильное бургер меню */}
