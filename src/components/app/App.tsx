@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
 import { AppHeader } from "../AppHeader/AppHeader";
 import { Footer } from "../Footer/Footer.tsx";
 import OtherLink from "../OtherLink/OtherLink.tsx";
+import { ModalSearch } from "../ModalSearch/ModalSearch.tsx";
 
 const MainPage = lazy(() => import("../pages/MainPage.tsx"));
 const Knowledge = lazy(() => import("../pages/knowledge/Knowledge.tsx"));
@@ -18,6 +19,7 @@ const App = () => {
   return (
     <Router>
       <div className="app min-h-screen flex flex-col text-neutral-900 dark:text-white bg-white dark:bg-black/95">
+        <ModalSearch/>
         <OtherLink />
         <AppHeader />
         <main className="flex-grow max-w-[1850px] w-full mx-auto px-5">
