@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/hooks'
 import type { RootState } from "../../store";
 import { openModalSearch } from "../../store/ModalSlice";
 import { toggleTheme } from "../../store/ThemSlice";
+import DefaultIcon from "../defaultIcon/DefaultIcon";
 import HeaderNavBar from "../HeaderNavBar/HeaderNavBar";
 
 export function AppHeader() {
@@ -23,6 +24,8 @@ export function AppHeader() {
     const icon = theme === "dark" ? "🌙" : "🌞";
     const burgerIcon = theme === "dark" ? burgerWhite : burgerDark
     const closeIcon = theme === "dark" ? closeWhite : closeDark
+
+    const userName = useAppSelector(state => state.user.name)
 
     useEffect(() => {
         if(isOpen) {
@@ -74,9 +77,12 @@ export function AppHeader() {
                         {icon}
                     </button>
 
-                    <Link to={"/auth/login"} className="hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 rounded-lg px-3 py-2 text-sm font-medium transition">
-                        Войти
-                    </Link>
+                    {userName 
+                        ? (<DefaultIcon/>)
+                        : (<Link to={"/auth/login"} 
+                                className="hover:bg-black/10 dark:hover:bg-white/10 border border-black/10 dark:border-white/10 rounded-lg px-3 py-2 text-sm font-medium transition">
+                                    Войти
+                            </Link>)}
                 </div>
 
                 {/* Мобильное бургер меню */}

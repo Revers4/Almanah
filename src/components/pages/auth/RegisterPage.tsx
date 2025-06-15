@@ -1,22 +1,29 @@
 import { Link } from "react-router-dom";
 import { useRegisterMutation } from "../../../API/authApi";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { logIn } from "../../../store/UserSlice";
+import { useAppDispatch } from "../../../hooks/hooks";
 
 export default function LoginPage() {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState("");
     const [registerMutation, {isError, isLoading}] = useRegisterMutation()
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch()
 
     const registerFunc = async () => {
         if(password === confirmPassword){
             const body = {
                 login,
-                password
+                password,
+                repeatPassword: confirmPassword
             };
-            await registerMutation(body).unwrap();
+            const userData= await registerMutation(body).unwrap();
+            dispatch(logIn(userData))
+            navigate('/')
         }
-
     }
 
     return (

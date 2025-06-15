@@ -1,14 +1,16 @@
 import { Link } from "react-router-dom";
 import { useLoginMutation } from "../../../API/authApi";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { logIn } from '../../../store/UserSlice'
+import { logIn } from '../../../store/UserSlice';
+import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../../hooks/hooks";
 
 export default function LoginPage() {
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
     const [loginMutation, { isLoading, isError}] = useLoginMutation()
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const loginFunc = async () => {
         const body = {
@@ -19,6 +21,7 @@ export default function LoginPage() {
         try {
             const data = await loginMutation(body).unwrap();
             dispatch(logIn(data));
+            navigate('/')
         } catch (error) {
             console.error("Login failed:", error);
         }
